@@ -1,25 +1,32 @@
 variable "image" {
-    default = "cb-centos71-amb212-2016-01-13-amb221-krisz"
+    default = "${var.image}"
 }
 
 variable "key" {
-    default = "seq-master"
+    default = "${var.key}"
 }
 
 variable "flavor" {
-    default= "m1.medium"
+    default= "${var.flavor}"
 }
 
 variable "name" {
-    default= "docker-test"
+    default= "${var.name}"
 }
 
 variable "network" {
-    default= "admin-net"
+    default= "${var.network}"
 }
 
 resource "openstack_compute_floatingip_v2" "floatip_1" {
   pool = "ext-net"
+}
+
+provider "openstack" {
+    user_name  = "${var.user_name}"
+    tenant_name = "${var.tenant_name}"
+    password  = "${var.password}"
+    auth_url  = "${var.auth_url}"
 }
 
 resource "openstack_compute_instance_v2" "test" {
